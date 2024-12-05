@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Example gradient (pink to orange) */
+            font-family: Arial, sans-serif;
+           
+           
+        }
+        .container{
+            height: 600px;;
+            width: 500px;
+           border-radius: 12px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fff;
+       
+           
+        }
+        h2{
+           margin-left: 3%;
+            padding: 15px 0;
+            font-weight: 600;
+            font-size: 2vw;
+            margin-bottom: 20px;
+        }
+        form{
+            width: 100%;
+            margin-left: 3%;
+          
+        }
+        form label{
+            font-size: 1.4vw;
+            font-weight: 600;
+          
+        }
+        form input{
+          padding: 22px 5px;
+            width: 94%;
+            outline:none;
+            border: 1px solid gray;
+            font-size: 1.3vw;
+            border-radius: 10px;
+            margin-top: 15px;
+            margin-bottom: 25px; 
+          
+        }
+        button {
+    padding: 12px 30px;
+    width: 94%; /* Set width to match input width */
+    border-radius: 30px;
+    border: none;
+    background-color: #ff7e5f;
+    font-size: 1.5vw;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block; /* Make the button block-level so it stretches */
+    margin-top: 30px; /* Add margin for spacing between button and input */
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #fcae72;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.create{
+   display: flex;
+   justify-content: center;
+    font-size: 1vw;
+    margin-top: 20px;
+    font-weight: 600;
+    
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+<h2>Sing Up</h2>
+        <form action="/signup" method="post">
+     <label for="usernmae">username:</label><br>
+     <input type="text" name="username" required><br>
+     <label for="password">password:</label><br>
+     <input type="password" name="password"><br>
+     <button type="submit">Sign Up</button>
+        </form>
+<div class="create">
+   <p> Already have an account  <span><a href="/login"> Log-in</a></span></p>
+</div>
+    </div>
+</body>
+</html>
