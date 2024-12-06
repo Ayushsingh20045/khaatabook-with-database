@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const connectDB = require("./config/mongoose");
 const user = require("./models/user");
+const Hisaab = require("./models/hisaab");
+
+let loggedInUser = null; //store the logged-in user in memory.
 
 //middlewares
 app.use(express.json());
@@ -29,12 +32,10 @@ app.post("/signup", async (req, res) => {
 
   if (existingUser) {
     return res.send("user already exixts.please try again");
-  }
-else{
-
+  } else {
     //create a new user and save to the database
     const newUser = user.create({ username, password });
-}
+  }
 
   res.redirect("/login");
 });
@@ -42,5 +43,63 @@ else{
 app.get("/login", (req, res) => {
   res.render("login");
 });
+
+//login post route for form handling.
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const userexist = await user.findOne({ username });
+  //if user match  allow it home page(index)
+
+  if (userexist) {
+    loggedInUser = userexist; //set the logged-in user
+    res.redirect("/");
+  } else {
+    //if not exist send message
+    return res.send("Invalid credentials. Try again.");
+  }
+});
+
+//logout logic
+
+app.get("/logout", (req, res) => {
+  loggedInUser = null; //clear logged-in user
+  res.redirect("/login");
+});
+
+//render dashboard
+
+app.get("/create", async (req, res) => {
+  if (!loggedInUser) {
+    return res.redirect("/login");
+  }
+
+  // Fetch only the Hisaabs associated with the logged-in user
+  const allHisaab = await Hisaab.find({ userId: loggedInUser._id });
+  res.render("create", { hisaab: allHisaab, user: loggedInUser });
+});
+
+app.post("/create", async (req, res) => {
+  const { name, amount, description } = req.body;
+  if (!loggedInUser) {
+    return res.redirect("/login");
+  }
+  const hisaab = await Hisaab.create({
+    name,
+    amount,
+    description,
+    userId: loggedInUser._id, // Associate the Hisaab with the logged-in user
+  });
+  res.redirect("/");
+});
+
+//edit hisaab
+app.get('/edit:id',(req,res)=>{
+  res.render
+})
+
+app.get("/",(req,res)=>{
+ res.render('dashboard')
+})
 
 app.listen(3000);
