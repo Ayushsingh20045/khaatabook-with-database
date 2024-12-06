@@ -5,6 +5,7 @@ const path = require("path");
 const connectDB = require("./config/mongoose");
 const user = require("./models/user");
 const Hisaab = require("./models/hisaab");
+const hisaab = require("./models/hisaab");
 
 let loggedInUser = null; //store the logged-in user in memory.
 
@@ -94,12 +95,17 @@ app.post("/create", async (req, res) => {
 });
 
 //edit hisaab
-app.get('/edit:id',(req,res)=>{
-  res.render
+app.get('/edit:id',async(req,res)=>{
+  const{id}=req.params;
+  if(!loggedInUser){
+    return res.render("/login")
+  }
+  const hisaab=await Hisaab.findOne({_id:id , userId:loggedInUser._id})
+if(!hisaab){
+  return res.send("Hisaab not found or unauthorized.")
+}
+
+// Render edit form with pre-filled data
+res.render("/edit",{hisaab})
 })
 
-app.get("/",(req,res)=>{
- res.render('dashboard')
-})
-
-app.listen(3000);
