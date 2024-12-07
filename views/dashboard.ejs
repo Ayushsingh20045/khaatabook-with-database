@@ -16,7 +16,7 @@
             overflow-x: hidden;
             height: 100%;
             width: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
    .nav {
             width: 100%;
@@ -54,7 +54,37 @@
             text-decoration: none;
             color: black;
         }
-
+    .main{
+        width: 100%;
+        height:calc(100%-20px);
+    }
+    h1{
+        padding: 3vw;
+        text-transform: uppercase;
+        font-size: 2.5vw;
+        font-weight: 900;
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        text-decoration: underline;
+        text-align: center;
+       
+    }
+.main ul{
+    height: 100%;
+    width: 100%;
+    display: flex;
+   padding: 0 10px;
+   gap: 2vw;
+   list-style: none;
+   flex-wrap: wrap;
+   margin-left: 2vw;
+}
+   .main li {
+       border: 1px solid rgb(151, 147, 147);
+        height: 200px;
+        width: 30vw;
+        
+      
+    }
        
     </style>
 </head>
@@ -73,7 +103,16 @@
 
     </div>
     <div class="main">
-       
-    </div>
+        <h1>Your Hisaabs</h1>
+        <ul>
+            <% allHisaab.forEach((entry)=>{ %>
+                 <li><%=entry.name%>-rs<%=entry.amount%> (<%=entry.description%>)
+                 <a href="/edit/<%=entry._id %>">Edit</a>
+                 <a href="/delete/<%=entry.id%>">Delete</a> 
+                </li>    
+                 
+           <% }); %>
+        </ul>
+        </div>
 </body>
 </html>

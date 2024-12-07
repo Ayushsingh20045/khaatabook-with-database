@@ -54,11 +54,11 @@ app.post("/login", async (req, res) => {
 
   if (userexist) {
     loggedInUser = userexist; //set the logged-in user
-    res.redirect("/");
-  } else {
+   return res.redirect("/");
+  } 
     //if not exist send message
     return res.send("Invalid credentials. Try again.");
-  }
+  
 });
 
 //logout logic
@@ -107,5 +107,24 @@ if(!hisaab){
 
 // Render edit form with pre-filled data
 res.render("/edit",{hisaab})
+
 })
+
+
+app.get('/',async(req,res)=>{
+ 
+
+
+ if(!loggedInUser){
+  res.redirect('/login');
+ }
+ 
+ const allHisaab =await Hisaab.find({userId:loggedInUser._id});
+//  console.log(allHisaab);
+ res.render("dashboard",{allHisaab})
+})
+
+
+app.listen(3000)
+
 
