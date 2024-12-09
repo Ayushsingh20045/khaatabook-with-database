@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Hisaab</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      color: #333;
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .hisaab-details {
+      margin: 18px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      max-width: 600px;
+    }
+
+    .hisaab-details p {
+      margin: 10px 0;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      padding: 18px 15px;
+      border: none;
+      border-radius: 10px;
+      margin: 20px;
+      background-color: gray;
+
+      font-weight: 600;
+
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hisaab Details</h1>
+
+  <div class="hisaab-details">
+    <p><strong>Name:</strong>
+      <%= hisaab.name %>
+    </p>
+    <p><strong>Amount:</strong> ₹<%= hisaab.amount %>
+    </p>
+    <p><strong>Description:</strong>
+      <%= hisaab.description %>
+    </p>
+  </div>
+
+  <a href="/"><button>Back to All Hisaabs</button></a>
+</body>
+
+</html>

@@ -54,11 +54,10 @@ app.post("/login", async (req, res) => {
 
   if (userexist) {
     loggedInUser = userexist; //set the logged-in user
-   return res.redirect("/");
-  } 
-    //if not exist send message
-    return res.send("Invalid credentials. Try again.");
-  
+    return res.redirect("/");
+  }
+  //if not exist send message
+  return res.send("Invalid credentials. Try again.");
 });
 
 //logout logic
@@ -68,7 +67,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-//render dashboard
+//create user
 
 app.get("/create", async (req, res) => {
   if (!loggedInUser) {
@@ -94,37 +93,58 @@ app.post("/create", async (req, res) => {
   res.redirect("/");
 });
 
-//edit hisaab
-app.get('/edit:id',async(req,res)=>{
-  const{id}=req.params;
-  if(!loggedInUser){
-    return res.render("/login")
+//showing hisaab in dashboard:
+
+app.get("/", async (req, res) => {
+  if (!loggedInUser) {
+    return res.redirect("/login");
   }
-  const hisaab=await Hisaab.findOne({_id:id , userId:loggedInUser._id})
-if(!hisaab){
-  return res.send("Hisaab not found or unauthorized.")
-}
 
-// Render edit form with pre-filled data
-res.render("/edit",{hisaab})
+  const allHisaab = await Hisaab.find({ userId: loggedInUser._id });
+  //  console.log(allHisaab);
+  res.render("dashboard", { allHisaab });
+});
 
-})
+//view hisaab
+app.get("/view/:id", async (req, res) => {
+  const { id } = req.params;
+  if (!loggedInUser) {
+    return res.redirect("/login");
+  }
+  const hisaab = await Hisaab.findOne({ _id: id });
+  res.render("view", { hisaab: hisaab });
+});
 
+//delete hisaab
+app.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const hisaab = await Hisaab.findOneAndDelete({ _id: id });
+  res.redirect("/");
+});
 
-app.get('/',async(req,res)=>{
- 
+//get route for edit
+app.get("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const hisaab = await Hisaab.findOne({ _id: id });
+  res.render("edit", { hisaab });
+});
 
+//post route for edit hisaab
+app.post("/edit/:id", async (req, res) => {
+  let { name, amount, description } = req.body;
+  const { id } = req.params;
 
- if(!loggedInUser){
-  res.redirect('/login');
- }
- 
- const allHisaab =await Hisaab.find({userId:loggedInUser._id});
-//  console.log(allHisaab);
- res.render("dashboard",{allHisaab})
-})
+  if (!loggedInUser) {
+    return res.redirect("/login");
+  }
 
+  const hisaab = await Hisaab.findOneAndUpdate(
+    { _id: id },
+    { name, description, amount },
+    { new: true }
+  );
 
-app.listen(3000)
+  res.redirect("/");
+});
 
-
+app.listen(3000);

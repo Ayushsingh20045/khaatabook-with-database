@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<style>
-       * {
+    <title>Home | KhataBook</title>
+    <style>
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -13,23 +15,29 @@
 
         html,
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
             overflow-x: hidden;
             height: 100%;
-            width: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-   .nav {
+
+        /* Navigation Bar */
+        .nav {
             width: 100%;
-            height: 20px;
+            height: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 45px 4vw;
+            padding: 20px 4vw;
             font-size: 1.1vw;
             font-weight: 600;
             border-bottom: 1px solid gray;
+            background-color: #fff;
+        }
 
-
+        .nav a {
+            text-decoration: none;
+            color: black;
         }
 
         .right ul {
@@ -37,9 +45,7 @@
             align-items: center;
             justify-content: center;
             list-style: none;
-            gap: 60px;
-
-
+            gap: 40px;
         }
 
         .right li {
@@ -50,40 +56,137 @@
             text-decoration: underline;
         }
 
-        .nav a {
-            text-decoration: none;
-            color: black;
+        .left {
+            font-size: 1.5vw;
+            font-weight: bold;
         }
 
-</style>
-</head>
-<body>
-   
-        <div class="nav">
+        /* Main Content */
+        .main {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-            <div class="left">
-                Khatabook
-            </div>
-            <div class="right">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/create">Create New Hisaab</a></li>
-                </ul>
-            </div>
-    
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            color: #555;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        form input,
+        form textarea {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            outline: none;
+        }
+
+        form textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        form input:focus,
+        form textarea:focus {
+            border-color: #007bff;
+        }
+
+        form button {
+            width: 150px;
+            padding: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logout a {
+            text-decoration: none;
+            color: #f44336;
+            font-size: 1.2em;
+        }
+
+        .logout a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav">
+        <div class="left">
+            KhataBook
         </div>
+        <div class="right">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/create">Create New Hisaab</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <div class="main">
-        <h1>Welcome, <%=user.username%> !</h1>
-        <a href="/logout">Logout</a>
+        <h1>Welcome, <%= user.username %>!</h1>
+        <div class="logout">
+            <a href="/logout"> <button type="submit" style="
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: 600;
+        color: white;
+        background-color: #f44336;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      ">
+                    Logout
+                </button></a>
+        </div>
         <h2>Add New Hisaab</h2>
         <form action="/create" method="post">
-<input type="text" name="name" placeholder="Name" required />
-<input type="number" name="amount" placeholder="Amount" required />
-<input type="text" name="description" placeholder="Description" />
-<button type="submit">Create</button>
-
+            <input type="text" name="name" placeholder="Name" required />
+            <input type="number" name="amount" placeholder="Amount" required />
+            <textarea name="description" placeholder="Description"></textarea>
+            <button type="submit">Create</button>
         </form>
     </div>
-   
 </body>
+
 </html>
